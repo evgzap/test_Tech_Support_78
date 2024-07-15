@@ -46,7 +46,7 @@ const user: IUserData = {
   salary: 100,
 };
 
-const api_path_templates = [
+const api_path_templates: string[] = [
   "/api/items/%id%/%name%",
   "/api/items/%id%/%role%",
   "/api/items/%id%/%salary%",
