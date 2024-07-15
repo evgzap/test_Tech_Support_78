@@ -4,16 +4,37 @@ interface IUserData {
 
 class Api {
   constructor() {}
+  /**
+   * Заполняет строковый шаблон template данными из объекта object
+   *
+   * @author		User Name
+   * @version		v.1.0 (dd/mm/yyyy)
+   * @param		{object} object
+   * @param		{string} template
+   * @return		{string}
+   */
   public get_api_path(object: IUserData, template: string): string {
     let result = template;
     for (let key in object) {
       if (object.hasOwnProperty(key)) {
-        let regExp = new RegExp(`%${key}%`, "g");
-        let value = encodeURIComponent(object[key]);
-        result = result.replace(regExp, value);
+        const regExp = new RegExp(`%${key}%`, "g");
+        result = this.replace_placeholder(result, object[key], regExp);
       }
     }
     return result;
+  }
+  /**
+   * Заменяет плейсхолдер в строке template значением value
+   *
+   * @param		{string} template
+   * @param		{string} key
+   * @param		{string} value
+   * @param		{string} regExp
+   * @return		{string}
+   */
+  private replace_placeholder(template: string, value:IUserData[keyof IUserData], regExp:RegExp): string {
+    let encodedValue = encodeURIComponent(value);
+    return template.replace(regExp, encodedValue);
   }
 }
 
